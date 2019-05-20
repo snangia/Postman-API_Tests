@@ -1,0 +1,49 @@
+pm.test("Response contains FundStationFundNumber", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.Fund.FundStationFundNumber).to.match(/^\d{5}$/);
+});
+pm.test("Response contains Expenses in %", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.FeesAndExpenseItems[0].Expenses).to.match((/^\d*.\d*%$/));
+    
+});
+
+pm.test("Response contains ExpensesWithoutWaiver in %", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.FeesAndExpenseItems[0].ExpensesWithoutWaiver).to.match((/^\d*.\d*%$/));
+    
+});
+
+pm.test("Response contains Waiver Expiration", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.FeesAndExpenseItems[0].WaiverExpiration).to.match(/^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$/);
+    
+});
+
+pm.test("Response contains AsOfDate", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.FeesAndExpenseItems[0].WaiverExpiration).to.match(/^[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$/);
+    
+});
+
+
+
+pm.test("Body matches string", function () {
+    pm.expect(pm.response.text()).to.include('{"FeesAndExpenseItems":[{"Expenses":"0.84%","ExpensesWithoutWaiver":"0.86%","WaiverExpiration":"02/28/2020","AsOfDate":"02/28/2019"}],"Fund":{"AllianceFundNumber":"402","FundStationFundNumber":6062,"Quotron":"ADGYX","Cusip":"01879K705","Bloomberg":null,"Sedol":null,"SAndP":null,"WknGerman":null,"Isin":null,"Swedish":null,"Reuters":null,"Valoren":null,"ShareClassFundNumber":"64B1-ADV","ABDigits":null,"FundNumber":"64B1","ShareClassName":"Advisor","ShareClassNameValue":null,"Country":"united states","Domicile":"United States","PricedDaily":true,"DailyNAV":null,"NAVChangeValue":null,"NAVChangePercentage":null,"YearToDate":null,"InceptionDate":"12/22/1999","LiquidatedDate":null,"BaseCurrency":"USD","ReportingCurrency":"USD","CurrencyType":"Unknown","MinimumInvestment":"","MaximumInvestment":"","DividendFrequency":null,"TotalFundAum":null,"NetAssetAsofDate":null,"ManagementFee":"","AdditionalFee":"","DistributionFees":"","TotalFees":"","SalesCharge":"","SalesCredit":"","MorningstarRating":{"Year3":2,"Year5":3,"Year10":null,"Overall":3,"Category":"US Fund Large Growth","OverallCategorySize":1254,"Year3CategorySize":1254,"Year5CategorySize":1123,"Year10CategorySize":null,"AsOfDate":"04/30/2019"},"LipperRanking":{"Category":"Multi-Cap Core Funds","OneYearRating":1,"OneYearPercentage":21,"OneYearRank":153,"OneYearCount":748,"ThreeYearRating":1,"ThreeYearPercentage":21,"ThreeYearRank":134,"ThreeYearCount":645,"FiveYearRating":1,"FiveYearPercentage":3,"FiveYearRank":14,"FiveYearCount":559,"TenYearRating":null,"TenYearPercentage":null,"TenYearRank":null,"TenYearCount":null,"AsOfDate":"03/29/2019","SI_Rating":1,"SI_Percentiles":2,"SI_Rank":7,"SI_Count":147},"BenchMarkName":null,"MorningStarCategoryName":null,"SiteFundNumber":"64B1","Name":null,"AssetClass":"Equities","Geotype":"Domestic","ProductType":"Open-End (Retail)","SubscriptionRedemption":null,"Form":null,"PageUrl":null,"ShareClasses":null,"TaxManaged":false,"HideHoldingsAndCharacteristics":false}}');
+});
+
+pm.test("Body is correct", function () {
+    pm.response.to.have.body('{"FeesAndExpenseItems":[{"Expenses":"0.84%","ExpensesWithoutWaiver":"0.86%","WaiverExpiration":"02/28/2020","AsOfDate":"02/28/2019"}],"Fund":{"AllianceFundNumber":"402","FundStationFundNumber":6062,"Quotron":"ADGYX","Cusip":"01879K705","Bloomberg":null,"Sedol":null,"SAndP":null,"WknGerman":null,"Isin":null,"Swedish":null,"Reuters":null,"Valoren":null,"ShareClassFundNumber":"64B1-ADV","ABDigits":null,"FundNumber":"64B1","ShareClassName":"Advisor","ShareClassNameValue":null,"Country":"united states","Domicile":"United States","PricedDaily":true,"DailyNAV":null,"NAVChangeValue":null,"NAVChangePercentage":null,"YearToDate":null,"InceptionDate":"12/22/1999","LiquidatedDate":null,"BaseCurrency":"USD","ReportingCurrency":"USD","CurrencyType":"Unknown","MinimumInvestment":"","MaximumInvestment":"","DividendFrequency":null,"TotalFundAum":null,"NetAssetAsofDate":null,"ManagementFee":"","AdditionalFee":"","DistributionFees":"","TotalFees":"","SalesCharge":"","SalesCredit":"","MorningstarRating":{"Year3":2,"Year5":3,"Year10":null,"Overall":3,"Category":"US Fund Large Growth","OverallCategorySize":1254,"Year3CategorySize":1254,"Year5CategorySize":1123,"Year10CategorySize":null,"AsOfDate":"04/30/2019"},"LipperRanking":{"Category":"Multi-Cap Core Funds","OneYearRating":1,"OneYearPercentage":21,"OneYearRank":153,"OneYearCount":748,"ThreeYearRating":1,"ThreeYearPercentage":21,"ThreeYearRank":134,"ThreeYearCount":645,"FiveYearRating":1,"FiveYearPercentage":3,"FiveYearRank":14,"FiveYearCount":559,"TenYearRating":null,"TenYearPercentage":null,"TenYearRank":null,"TenYearCount":null,"AsOfDate":"03/29/2019","SI_Rating":1,"SI_Percentiles":2,"SI_Rank":7,"SI_Count":147},"BenchMarkName":null,"MorningStarCategoryName":null,"SiteFundNumber":"64B1","Name":null,"AssetClass":"Equities","Geotype":"Domestic","ProductType":"Open-End (Retail)","SubscriptionRedemption":null,"Form":null,"PageUrl":null,"ShareClasses":null,"TaxManaged":false,"HideHoldingsAndCharacteristics":false}}');
+});
+
+pm.test("Your test name", function () {
+    var jsonData = pm.response.json();
+    //pm.expect(jsonData.FeesAndExpenseItems.Expenses).to.eql('0.84%');
+      pm.expect(jsonData.Fund.ShareClassName).to.eql('Advisor');
+    
+});
+
+pm.test("Your test name", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.Fund.LipperRanking.AsOfDate).to.eql('03/29/2019');
+});
